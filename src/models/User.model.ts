@@ -1,42 +1,45 @@
 import { DataTypes, Optional, Model } from "sequelize";
-import sequelize from '../database';
+import sequelize from "../database";
 
-export interface IUser{
-    id?: number
-    username: string,
-    email: string,
-    phone: string,
-    password: string,
-    createdAt?: string
+export interface IUser {
+  id?: number;
+  fullName?: string;
+  email?: string;
+  phone?: string;
+  password?: string;
+  createdAt?: string;
+  provider?: string;
+  avatar?: string;
 }
 
+export interface UserInstace extends Model<IUser>, IUser {}
 
-export interface UserInstace extends Model<IUser>,IUser {};
-
-export const UserModel = sequelize.define<UserInstace>("user",{
+export const UserModel = sequelize.define<UserInstace>(
+  "user",
+  {
     id: {
-        type: DataTypes.INTEGER.UNSIGNED,
-        primaryKey: true,
-        autoIncrement: true,
+      type: DataTypes.INTEGER.UNSIGNED,
+      primaryKey: true,
+      autoIncrement: true,
     },
-    username: {
-        type: DataTypes.STRING(280),
-        allowNull: false
+    fullName: {
+      type: DataTypes.STRING(280),
     },
     email: {
-        type: DataTypes.STRING(280),
-        allowNull: false
+      type: DataTypes.STRING(280),
     },
     phone: {
-        type: DataTypes.STRING(280),
-        allowNull: false,
-        
+      type: DataTypes.STRING(280),
+    },
+    provider: {
+      type: DataTypes.STRING(280),
+    },
+    avatar: {
+      type: DataTypes.STRING(280),
     },
     password: DataTypes.STRING(280),
-    createdAt: {
-        defaultValue: Date.now(),
-        type: DataTypes.DATE
-    }
-},{
-    tableName: 'users',
-});
+  },
+  {
+    tableName: "users",
+  }
+);

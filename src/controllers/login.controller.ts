@@ -4,11 +4,11 @@ import bcrypt from "bcrypt";
 import { GenerateToken } from "./generateToken.controller";
 
 export const LoginUser = async (req: Request, res: Response) => {
-  const { username, password } = req.body;
+  const { fullName, password } = req.body;
 
   const user = await UserModel.findOne({
     where: {
-      username,
+      fullName,
     },
   });
   if (!user) {
@@ -18,7 +18,7 @@ export const LoginUser = async (req: Request, res: Response) => {
     });
   }
 
-  const match = await bcrypt.compare(password, user.password);
+  const match = await bcrypt.compare(password, user.password as string);
 
   if (!match) {
     return res.status(200).json({

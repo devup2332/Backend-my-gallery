@@ -1,8 +1,16 @@
 import { Router } from "express";
-import { RegisterUser } from "../controllers/register.controller";
+import passport from "passport";
+import { RegisterFacebook } from "../controllers/register-facebook";
+import { RegisterUser } from "../controllers/register-user";
 
 const router = Router();
 
-router.post('/',RegisterUser);
+router.post("/", RegisterUser);
 
-export default router
+router.get(
+  "/facebook",
+  passport.authenticate("facebook_strategy"),
+  RegisterFacebook
+);
+
+export default router;
