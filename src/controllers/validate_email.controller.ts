@@ -10,7 +10,7 @@ export const ValidateEmail = async (req: Request, res: Response) => {
     },
   });
 
-  if (user) {
+  if (user && user.provider !== "facebook") {
     return res.status(200).json({
       status: false,
       message: "Email already is in use",

@@ -4,16 +4,15 @@ import bcrypt from "bcrypt";
 import { GenerateToken } from "./generateToken.controller";
 
 export const LoginUser = async (req: Request, res: Response) => {
-  const { fullName, password } = req.body;
-
+  const { email, password } = req.body;
   const user = await UserModel.findOne({
     where: {
-      fullName,
+      email,
     },
   });
-  if (!user) {
+  if (!user || user.provider === "facebook") {
     return res.status(200).json({
-      message: "Username dosent exist",
+      message: "Email dosent exist",
       status: false,
     });
   }

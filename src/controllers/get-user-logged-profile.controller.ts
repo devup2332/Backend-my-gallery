@@ -7,6 +7,5 @@ export const GetUserLogged = async (req: Request, res: Response) => {
       id: (req.user as any).id,
     },
   });
-  console.log("User Logged", user);
   return res.status(200).json({ user });
 };

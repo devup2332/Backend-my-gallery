@@ -8,6 +8,7 @@ export const RegisterUser = async (req: Request, res: Response) => {
   const { fullName, password, email, phone } = req.body;
   const salt = await bcrypt.genSalt(10);
   const passwordCrypt = await bcrypt.hash(password, salt);
+
   const newUser = await UserModel.create({
     fullName,
     password: passwordCrypt,
@@ -16,7 +17,9 @@ export const RegisterUser = async (req: Request, res: Response) => {
     avatar: environments.default_photo,
     provider: "form",
   });
+
   const token = GenerateToken(newUser);
+
   return res.status(200).json({
     user: newUser,
     status: "User Created Successfully",

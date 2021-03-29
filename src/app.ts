@@ -7,7 +7,7 @@ import path from "path";
 import passport from "passport";
 import ApiRoutes from "./routes/api-routes.routes";
 import JWTMiddleware from "./middlewares/jwt.middleware";
-import FacebookMiddleware from "./middlewares/login-facebook.middleware";
+import FacebookMiddleware from "./middlewares/facebook.middleware";
 import { environments } from "./environments/environments";
 import Pusher from "pusher";
 
