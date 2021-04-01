@@ -1,18 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from "../database";
 
-interface IUser {
-  id?: string;
-  fullName?: string;
-  email?: string;
-  phone?: string;
-  description?: string;
-  password?: string;
-  createdAt?: string;
-  provider?: string;
-  avatar?: string;
-}
-
 class UserModel extends Model {
   public id!: string;
   public fullName!: string;

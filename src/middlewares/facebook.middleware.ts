@@ -16,8 +16,8 @@ deserializeUser((user, done) => {
 
 const facebookStrategy = new Strategy(
   {
-    clientID: environments.client_Id_facebook,
-    clientSecret: environments.client_secret,
+    clientID: environments.FB.FB_ID,
+    clientSecret: environments.FB.FB_SECRET,
     callbackURL: "/api/auth/facebook",
     profileFields: ["email", "displayName"],
   },
@@ -42,7 +42,7 @@ const facebookStrategy = new Strategy(
         id: ui(),
         email,
         fullName: name,
-        avatar: environments.default_photo,
+        avatar: environments.DEFAULT.PHOTO,
         provider: "facebook",
       });
 

@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import Database from "./database";
 import morgan from "morgan";
-import path from "path";
 import passport from "passport";
 import ApiRoutes from "./routes/api-routes.routes";
 import JWTMiddleware from "./middlewares/jwt.middleware";
@@ -11,9 +10,9 @@ import { environments } from "./environments/environments";
 import Pusher from "pusher";
 
 export const pusher = new Pusher({
-  appId: "1178672",
-  key: "7a1ea605dc1a765a5bc1",
-  secret: "e3cd5ba70e1735791a60",
+  appId: environments.PUSHER.PUSHER_APP_ID,
+  key: environments.PUSHER.PUSHER_KEY,
+  secret: environments.PUSHER.PUSHER_SECRET,
   cluster: "us2",
   useTLS: true,
 });
@@ -21,7 +20,6 @@ export const pusher = new Pusher({
 const app = express();
 
 app.use(cors());
-
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(passport.initialize());
@@ -29,13 +27,10 @@ passport.use("jwt_strategy", JWTMiddleware);
 passport.use("facebook_strategy", FacebookMiddleware);
 
 app.use("/api", ApiRoutes);
-app.use("/", (req, res) => {
-  res.json({ message: "API WORKS" });
-});
 
-app.listen(environments.port, async () => {
+app.listen(environments.PORT, async () => {
   try {
-    console.log(`Serve on port ${environments.port}`);
+    console.log(`Serve on port ${environments.PORT}`);
     await Database.authenticate();
     console.log("Database is connected");
     await Database.sync({ force: false });

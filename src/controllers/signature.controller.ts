@@ -9,11 +9,11 @@ export const GetSignature = async (req: Request, res: Response) => {
     {
       timestamp,
     },
-    environments.cloudinary_api_secret as string
+    environments.CD.CD_API_SECRET as string
   );
   return res.json({
     signature,
     timestamp,
-    api_key: environments.cloudinary_api_key,
+    api_key: environments.CD.CD_API_KEY,
   });
 };

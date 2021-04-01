@@ -3,15 +3,15 @@ import { environments } from "./environments/environments";
 import mysql2 from "mysql2";
 
 const sequelize = new Sequelize(
-  environments.database as string,
-  environments.username as string,
-  environments.password,
-
+  environments.DB.DB_NAME,
+  environments.DB.DB_USERNAME,
+  environments.DB.DB_PASSWORD,
   {
     dialect: "mysql",
     dialectModule: mysql2,
-    host: environments.host,
-    port: environments.database_port,
+    host: environments.DB.DB_HOST,
+    port: environments.DB.DB_PORT,
+    logging: false,
   }
 );
 

@@ -18,8 +18,10 @@ export const UpdateProfileUser = async (req: Request, res: Response) => {
           },
         }
       );
-
-      pusher.trigger("my-gallery", "user-photo-updated", {});
+      console.log("PHOTO USER PHOTO EVENT EMITTED");
+      pusher.trigger("my-gallery", "user-photo-updated", {
+        message: "Photo User updated",
+      });
 
       return res.status(200).json({
         message: "User updated",

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import UserModel from "../models/User.model";
 import { GenerateToken } from "./generateToken.controller";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import ui from "uniqid";
 import { environments } from "../environments/environments";
 
@@ -17,7 +17,7 @@ export const RegisterUser = async (req: Request, res: Response) => {
       password: passwordCrypt,
       email,
       phone,
-      avatar: environments.default_photo,
+      avatar: environments.DEFAULT.PHOTO,
       provider: "form",
     });
 
