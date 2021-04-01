@@ -42,7 +42,7 @@ app.listen(environments.port, async () => {
     console.log("Database is connected");
     await Database.sync({ force: false });
   } catch (err) {
-    console.log("ERROR", err.message);
+    console.log("ERROR", { ...err });
   }
 });
 
