@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import UserModel from "../models/User.model";
 import { GenerateToken } from "./generateToken.controller";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import ui from "uniqid";
 import { environments } from "../environments/environments";
 

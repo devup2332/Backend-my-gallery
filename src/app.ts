@@ -21,16 +21,18 @@ export const pusher = new Pusher({
 const app = express();
 
 app.use(cors());
-passport.use("jwt_strategy", JWTMiddleware);
-passport.use("facebook_strategy", FacebookMiddleware);
+
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(passport.initialize());
+passport.use("jwt_strategy", JWTMiddleware);
+passport.use("facebook_strategy", FacebookMiddleware);
 
 app.use("/api", ApiRoutes);
+
 app.use("/", (req, res) => {
-  res.json({ status: "API WORKING" });
+  return res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 app.listen(environments.port, async () => {

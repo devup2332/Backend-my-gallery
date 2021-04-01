@@ -1,6 +1,5 @@
-import { DataTypes, Optional, Model } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import sequelize from "../database";
-import uid from "uniqid";
 
 interface IUser {
   id?: string;
