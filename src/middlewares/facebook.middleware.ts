@@ -3,7 +3,8 @@ import { Strategy } from "passport-facebook";
 import { pusher } from "../app";
 import { GenerateToken } from "../controllers/generateToken.controller";
 import { environments } from "../environments/environments";
-import { UserModel } from "../models/User.model";
+import UserModel from "../models/User.model";
+import ui from "uniqid";
 
 serializeUser((user, done) => {
   done(null, user);
@@ -22,7 +23,6 @@ const facebookStrategy = new Strategy(
   },
   async (token, refreshToken, profile, done) => {
     try {
-      console.log(profile);
       const { email, name } = profile?._json;
       const user = await UserModel.findOne({
         where: {
@@ -39,6 +39,7 @@ const facebookStrategy = new Strategy(
       }
       console.log("register");
       const newUser = await UserModel.create({
+        id: ui(),
         email,
         fullName: name,
         avatar: environments.default_photo,
@@ -53,6 +54,7 @@ const facebookStrategy = new Strategy(
       return done(null, newUser);
     } catch (err) {
       console.log(err.message);
+      return done(err, false);
     }
   }
 );

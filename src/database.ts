@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import { environments } from "./environments/environments";
+import mysql2 from "mysql2";
 
 const sequelize = new Sequelize(
   environments.database as string,
@@ -8,6 +9,7 @@ const sequelize = new Sequelize(
 
   {
     dialect: "mysql",
+    dialectModule: mysql2,
     host: environments.host,
     port: environments.database_port,
   }

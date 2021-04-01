@@ -1,6 +1,5 @@
 import express from "express";
 import cors from "cors";
-import helmet from "helmet";
 import Database from "./database";
 import morgan from "morgan";
 import path from "path";
@@ -30,13 +29,16 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(passport.initialize());
 
 app.use("/api", ApiRoutes);
+app.use("/", (req, res) => {
+  res.json({ status: "API WORKING" });
+});
 
 app.listen(environments.port, async () => {
   try {
     console.log(`Serve on port ${environments.port}`);
     await Database.authenticate();
     console.log("Database is connected");
-    await Database.sync({ force: true });
+    await Database.sync({ force: false });
   } catch (err) {
     console.log("ERROR", err.message);
   }

@@ -1,26 +1,37 @@
 import { DataTypes, Optional, Model } from "sequelize";
 import sequelize from "../database";
+import uid from "uniqid";
 
-export interface IUser {
-  id?: number;
+interface IUser {
+  id?: string;
   fullName?: string;
   email?: string;
   phone?: string;
+  description?: string;
   password?: string;
   createdAt?: string;
   provider?: string;
   avatar?: string;
 }
 
-export interface UserInstace extends Model<IUser>, IUser {}
+class UserModel extends Model {
+  public id!: string;
+  public fullName!: string;
+  public email!: string;
+  public phone!: string;
+  public description!: string;
+  public provider!: string;
+  public avatart!: string;
+  public password!: string;
+}
 
-export const UserModel = sequelize.define<UserInstace>(
-  "user",
+UserModel.init(
   {
     id: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.STRING(200),
       primaryKey: true,
-      autoIncrement: true,
+      allowNull: false,
+      unique: true,
     },
     fullName: {
       type: DataTypes.STRING(280),
@@ -30,6 +41,9 @@ export const UserModel = sequelize.define<UserInstace>(
     },
     phone: {
       type: DataTypes.STRING(280),
+    },
+    description: {
+      type: DataTypes.STRING(500),
     },
     provider: {
       type: DataTypes.STRING(280),
@@ -41,5 +55,8 @@ export const UserModel = sequelize.define<UserInstace>(
   },
   {
     tableName: "users",
+    sequelize,
   }
 );
+
+export default UserModel;

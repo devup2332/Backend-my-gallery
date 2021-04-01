@@ -8,10 +8,12 @@ export const environments = {
   database: process.env.DATABASE_NAME,
   host: process.env.DATABASE_HOST,
   database_port: Number(process.env.DATABASE_PORT),
-  port: process.env.PORT as string,
+  port: process.env.PORT || 8080,
   jwt_secret: process.env.JWT_SECRET as string,
   client_Id_facebook: process.env.CLIENT_ID_FACEBOOK as string,
   client_secret: process.env.FACEBOOK_SECRET as string,
+  cloudinary_api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloudinary_api_key: process.env.CLOUDINARY_API_KEY,
   default_photo:
-    "https://images.unsplash.com/photo-1521132293557-5b908a59d1e1?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1934&q=80",
+    "https://res.cloudinary.com/dder8kjda/image/upload/v1617211129/user-icon_x13zob.png",
 };

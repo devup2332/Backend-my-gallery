@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { UserModel } from "../models/User.model";
+import UserModel from "../models/User.model";
 import bcrypt from "bcrypt";
 import { GenerateToken } from "./generateToken.controller";
 
