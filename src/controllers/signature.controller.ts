@@ -3,7 +3,6 @@ import cloudinary from "cloudinary";
 import { environments } from "../environments/environments";
 
 export const GetSignature = async (req: Request, res: Response) => {
-  console.log("here");
   const timestamp = Math.round(new Date().getTime() / 1000);
   const signature = cloudinary.v2.utils.api_sign_request(
     {

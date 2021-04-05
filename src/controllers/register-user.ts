@@ -11,15 +11,26 @@ export const RegisterUser = async (req: Request, res: Response) => {
     const salt = await bcrypt.genSalt(10);
     const passwordCrypt = await bcrypt.hash(password, salt);
 
-    const newUser = await UserModel.create({
-      id: ui(),
-      fullName,
-      password: passwordCrypt,
-      email,
-      phone,
-      avatar: environments.DEFAULT.PHOTO,
-      provider: "form",
-    });
+    const idUser = ui();
+    const idAvatar = ui();
+
+    const newUser = await UserModel.create(
+      {
+        id: idUser,
+        fullName,
+        password: passwordCrypt,
+        email,
+        phone,
+        provider: "form",
+        avatar: {
+          id: idAvatar,
+          secure_url: environments.DEFAULT.PHOTO,
+        },
+      },
+      {
+        include: "avatar",
+      }
+    );
 
     const token = GenerateToken(newUser);
 

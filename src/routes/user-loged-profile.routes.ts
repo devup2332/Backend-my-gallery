@@ -4,6 +4,12 @@ import { GetUserLogged } from "../controllers/get-user-logged-profile.controller
 
 const router = Router();
 
-router.get("/", passport.authenticate("jwt_strategy"), GetUserLogged);
+router.get(
+  "/",
+  passport.authenticate("jwt_strategy", {
+    failureRedirect: "/api/unauthorized",
+  }),
+  GetUserLogged
+);
 
 export default router;

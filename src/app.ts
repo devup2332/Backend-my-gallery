@@ -8,6 +8,7 @@ import JWTMiddleware from "./middlewares/jwt.middleware";
 import FacebookMiddleware from "./middlewares/facebook.middleware";
 import { environments } from "./environments/environments";
 import Pusher from "pusher";
+import "./asociations";
 
 export const pusher = new Pusher({
   appId: environments.PUSHER.PUSHER_APP_ID,
@@ -27,6 +28,13 @@ passport.use("jwt_strategy", JWTMiddleware);
 passport.use("facebook_strategy", FacebookMiddleware);
 
 app.use("/api", ApiRoutes);
+
+app.use("/", (req, res) => {
+  return res.json({
+    status: true,
+    message: "Api is working",
+  });
+});
 
 app.listen(environments.PORT, async () => {
   try {

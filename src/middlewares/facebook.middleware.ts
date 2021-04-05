@@ -5,6 +5,7 @@ import { GenerateToken } from "../controllers/generateToken.controller";
 import { environments } from "../environments/environments";
 import UserModel from "../models/User.model";
 import ui from "uniqid";
+import AvatarModel from "../models/Avatar.model";
 
 serializeUser((user, done) => {
   done(null, user);
@@ -24,26 +25,32 @@ const facebookStrategy = new Strategy(
   async (token, refreshToken, profile, done) => {
     try {
       const { email, name } = profile?._json;
+      const idAvatar = ui();
+      const idUser = ui();
+
       const user = await UserModel.findOne({
         where: {
           email,
         },
       });
       if (user) {
-        console.log("login");
         pusher.trigger("my-gallery", "login-facebook", {
           token: GenerateToken(user),
           message: "User Logged",
         });
         return done(null, user);
       }
-      console.log("register");
       const newUser = await UserModel.create({
-        id: ui(),
+        id: idUser,
         email,
         fullName: name,
-        avatar: environments.DEFAULT.PHOTO,
         provider: "facebook",
+      });
+
+      await AvatarModel.create({
+        id: idAvatar,
+        secure_url: environments.DEFAULT.PHOTO,
+        userId: idUser,
       });
 
       pusher.trigger("my-gallery", "register-facebook", {
