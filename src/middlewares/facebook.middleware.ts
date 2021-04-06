@@ -1,7 +1,7 @@
 import { deserializeUser, serializeUser } from "passport";
 import { Strategy } from "passport-facebook";
 import { pusher } from "../app";
-import { GenerateToken } from "../controllers/generateToken.controller";
+import { generateToken } from "../controllers/auth/generateToken";
 import { environments } from "../environments/environments";
 import UserModel from "../models/User.model";
 import ui from "uniqid";
@@ -35,7 +35,7 @@ const facebookStrategy = new Strategy(
       });
       if (user) {
         pusher.trigger("my-gallery", "login-facebook", {
-          token: GenerateToken(user),
+          token: generateToken(user),
           message: "User Logged",
         });
         return done(null, user);
@@ -54,7 +54,7 @@ const facebookStrategy = new Strategy(
       });
 
       pusher.trigger("my-gallery", "register-facebook", {
-        token: GenerateToken(newUser),
+        token: generateToken(newUser),
         message: "User Registered and Logged",
       });
 

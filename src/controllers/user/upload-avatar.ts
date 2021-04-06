@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
-import AvatarModel from "../models/Avatar.model";
+import AvatarModel from "../../models/Avatar.model";
 import uid from "uniqid";
-import { idText } from "typescript";
 
-export const UploadAvatar = async (req: Request, res: Response) => {
+export const uploadAvatar = async (req: Request, res: Response) => {
   const { public_id, secure_url } = req.body;
 
   const id = uid();

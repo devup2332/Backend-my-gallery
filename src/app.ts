@@ -3,7 +3,7 @@ import cors from "cors";
 import Database from "./database";
 import morgan from "morgan";
 import passport from "passport";
-import ApiRoutes from "./routes/api-routes.routes";
+import ApiRoutes from "./routes/api-router";
 import JWTMiddleware from "./middlewares/jwt.middleware";
 import FacebookMiddleware from "./middlewares/facebook.middleware";
 import { environments } from "./environments/environments";
@@ -41,7 +41,7 @@ app.listen(environments.PORT, async () => {
     console.log(`Serve on port ${environments.PORT}`);
     await Database.authenticate();
     console.log("Database is connected");
-    await Database.sync({ force: false });
+    await Database.sync({ force: true });
   } catch (err) {
     console.log("ERROR", { ...err });
   }

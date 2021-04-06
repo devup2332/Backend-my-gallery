@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-export const GetAllTags = (req: Request, res: Response) => {
+export const getTags = (req: Request, res: Response) => {
   const options = [
     {
       name: "City",

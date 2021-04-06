@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import { pusher } from "../app";
-import AvatarModel from "../models/Avatar.model";
-import UserModel from "../models/User.model";
+import { pusher } from "../../app";
+import AvatarModel from "../../models/Avatar.model";
+import UserModel from "../../models/User.model";
 import cloudinary from "cloudinary";
 import ui from "uniqid";
-import { environments } from "../environments/environments";
+import { environments } from "../../environments/environments";
 
-export const UpdateProfileUser = async (req: Request, res: Response) => {
+export const updateProfile = async (req: Request, res: Response) => {
   const { id } = req.params;
   const { fullName, description, email, phone, avatar } = req.body;
 
@@ -46,6 +46,7 @@ export const UpdateProfileUser = async (req: Request, res: Response) => {
   }
 
   try {
+    console.log("heere");
     await UserModel.update(
       {
         fullName,
@@ -61,7 +62,7 @@ export const UpdateProfileUser = async (req: Request, res: Response) => {
     );
 
     pusher.trigger("my-gallery", "user-updated", {
-      message: "Information User updated",
+      message: "Profile updated",
     });
 
     return res.status(200).json({

@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import UserModel from "../models/User.model";
+import UserModel from "../../models/User.model";
 import bcrypt from "bcrypt";
-import { GenerateToken } from "./generateToken.controller";
+import { generateToken } from "./generateToken";
 
-export const LoginUser = async (req: Request, res: Response) => {
+export const loginUser = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   const user = await UserModel.findOne({
     where: {
@@ -25,7 +25,7 @@ export const LoginUser = async (req: Request, res: Response) => {
       status: false,
     });
   }
-  const token = GenerateToken(user);
+  const token = generateToken(user);
 
   return res.status(200).json({
     message: "User Logged",

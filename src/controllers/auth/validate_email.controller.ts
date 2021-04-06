@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import UserModel from "../models/User.model";
+import UserModel from "../../models/User.model";
 
-export const ValidateEmail = async (req: Request, res: Response) => {
+export const validateEmail = async (req: Request, res: Response) => {
   const { email } = req.body;
 
   const user = await UserModel.findOne({

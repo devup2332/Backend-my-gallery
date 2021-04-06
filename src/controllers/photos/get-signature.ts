@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import cloudinary from "cloudinary";
-import { environments } from "../environments/environments";
+import { environments } from "../../environments/environments";
 
-export const GetSignature = async (req: Request, res: Response) => {
+export const getSignature = async (req: Request, res: Response) => {
   const timestamp = Math.round(new Date().getTime() / 1000);
   const signature = cloudinary.v2.utils.api_sign_request(
     {
