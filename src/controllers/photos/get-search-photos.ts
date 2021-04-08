@@ -1,11 +1,20 @@
 import { Request, Response } from "express";
 import AvatarModel from "../../models/Avatar.model";
 import PhotoModel from "../../models/Photo.model";
+import TagsModel from "../../models/Tags.model";
 import UserModel from "../../models/User.model";
 
-export const getPhotos = async (req: Request, res: Response) => {
+export const getSearchPhotos = async (req: Request, res: Response) => {
+  const { text } = req.params;
   const photos = await PhotoModel.findAll({
     include: [
+      {
+        model: TagsModel,
+        as: "tags",
+        where: {
+          name: text.toLowerCase(),
+        },
+      },
       {
         model: UserModel,
         as: "user",
@@ -19,7 +28,7 @@ export const getPhotos = async (req: Request, res: Response) => {
     ],
   });
   return res.status(200).json({
-    status: true,
-    photos: photos,
+    status: 200,
+    photos,
   });
 };

@@ -58,15 +58,15 @@ export const getTags = (req: Request, res: Response) => {
     },
     {
       name: "Caotic",
-      id: 12,
+      id: 14,
     },
     {
       name: "Love",
-      id: 12,
+      id: 15,
     },
     {
       name: "Heart",
-      id: 12,
+      id: 16,
     },
   ];
   return res.status(200).json({

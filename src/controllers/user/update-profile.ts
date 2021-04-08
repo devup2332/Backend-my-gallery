@@ -46,7 +46,6 @@ export const updateProfile = async (req: Request, res: Response) => {
   }
 
   try {
-    console.log("heere");
     await UserModel.update(
       {
         fullName,

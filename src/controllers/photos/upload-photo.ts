@@ -13,6 +13,8 @@ export const UploadNewPhoto = async (req: Request, res: Response) => {
   const newPhoto = await PhotoModel.create({
     secure_url: image.secure_url,
     public_id: image.public_id,
+    width: image.width,
+    height: image.height,
     description,
     name,
     id: photoId,

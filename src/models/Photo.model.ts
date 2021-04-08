@@ -11,6 +11,8 @@ class PhotoModel extends Model {
   public userId!: UserModel;
   public description!: string;
   public name!: string;
+  public height!: string;
+  public width!: string;
 }
 
 PhotoModel.init(
@@ -22,6 +24,12 @@ PhotoModel.init(
       unique: true,
     },
     description: {
+      type: DataTypes.STRING,
+    },
+    height: {
+      type: DataTypes.STRING,
+    },
+    width: {
       type: DataTypes.STRING,
     },
     name: {
