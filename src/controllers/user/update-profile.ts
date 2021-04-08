@@ -73,14 +73,7 @@ export const updateProfile = async (req: Request, res: Response) => {
   }
 };
 
-const options: cloudinary.ConfigOptions = {
-  api_key: environments.CD.CD_API_KEY,
-  api_secret: environments.CD.CD_API_SECRET,
-  cloud_name: "dder8kjda",
-};
-
-const destroyPhotoCloud = async (public_id: string) => {
-  cloudinary.v2.config(options);
+export const destroyPhotoCloud = async (public_id: string) => {
   try {
     await cloudinary.v2.uploader.destroy(public_id);
 

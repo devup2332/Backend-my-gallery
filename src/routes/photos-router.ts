@@ -6,6 +6,7 @@ import { getUserPhotos } from "../controllers/photos/get-user-photos";
 import { uploadAvatar } from "../controllers/user/upload-avatar";
 import { UploadNewPhoto } from "../controllers/photos/upload-photo";
 import { getSearchPhotos } from "../controllers/photos/get-search-photos";
+import { deletePhoto } from "../controllers/photos/delete-photo";
 
 const router = Router();
 
@@ -23,5 +24,6 @@ router.get("/signature", passport.authenticate("jwt_strategy"), getSignature);
 router.get("/:id", passport.authenticate("jwt_strategy"), getUserPhotos);
 router.get("/", getPhotos);
 router.get("/search/:text", getSearchPhotos);
+router.delete("/:id", deletePhoto);
 
 export default router;

@@ -8,6 +8,7 @@ import JWTMiddleware from "./middlewares/jwt.middleware";
 import FacebookMiddleware from "./middlewares/facebook.middleware";
 import { environments } from "./environments/environments";
 import Pusher from "pusher";
+import cloudinary from "cloudinary";
 import "./asociations";
 
 export const pusher = new Pusher({
@@ -17,6 +18,13 @@ export const pusher = new Pusher({
   cluster: "us2",
   useTLS: true,
 });
+
+const options: cloudinary.ConfigOptions = {
+  api_key: environments.CD.CD_API_KEY,
+  api_secret: environments.CD.CD_API_SECRET,
+  cloud_name: "dder8kjda",
+};
+cloudinary.v2.config(options);
 
 const app = express();
 
@@ -41,7 +49,7 @@ app.listen(environments.PORT, async () => {
     console.log(`Serve on port ${environments.PORT}`);
     await Database.authenticate();
     console.log("Database is connected");
-    await Database.sync({ force: true });
+    await Database.sync({ force: false });
   } catch (err) {
     console.log("ERROR", { ...err });
   }
