@@ -28,11 +28,7 @@ cloudinary.v2.config(options);
 
 const app = express();
 
-app.use(
-  cors({
-    origin: "https://www.my-gallery.xyz",
-  })
-);
+app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(passport.initialize());
