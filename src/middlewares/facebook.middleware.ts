@@ -19,7 +19,7 @@ const facebookStrategy = new Strategy(
   {
     clientID: environments.FB.FB_ID,
     clientSecret: environments.FB.FB_SECRET,
-    callbackURL: "/api/auth/facebook",
+    callbackURL: "https://my-gallery.xyz/api/auth/facebook",
     profileFields: ["email", "displayName"],
   },
   async (token, refreshToken, profile, done) => {
@@ -27,12 +27,29 @@ const facebookStrategy = new Strategy(
       const { email, name } = profile?._json;
       const idAvatar = ui();
       const idUser = ui();
+      if (email) {
+        const user = await UserModel.findOne({
+          where: {
+            email,
+          },
+        });
+
+        if (user) {
+          pusher.trigger("my-gallery", "login-facebook", {
+            token: generateToken(user),
+            message: "User Logged",
+          });
+          return done(null, user);
+        }
+        return done(user);
+      }
 
       const user = await UserModel.findOne({
         where: {
-          email,
+          fullName: name,
         },
       });
+
       if (user) {
         pusher.trigger("my-gallery", "login-facebook", {
           token: generateToken(user),
@@ -40,9 +57,10 @@ const facebookStrategy = new Strategy(
         });
         return done(null, user);
       }
+
       const newUser = await UserModel.create({
         id: idUser,
-        email,
+        email: email ? email : "",
         fullName: name,
         provider: "facebook",
       });
